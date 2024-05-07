@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "561646255345",
+    "project_id": "branchtask",
+    "storage_bucket": "branchtask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561646255345:android:9de48c1afebe22bb977d50",
+        "android_client_info": {
+          "package_name": "com.example.crud_operation"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7oSOzUecKyVjPG5c40gPlBG28bSA4tOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
