@@ -14,7 +14,7 @@ class UserRemoteImp extends UserRemote {
   get_users() async {
     List<User> users = [];
     try {
-      final res = await firestore.collection('User').get();
+      final res = await firestore.collection('User').orderBy('branchNo').get();
       res.docs.forEach((element) {
         users.add(UserModel.fromMap(element.data()));
       });

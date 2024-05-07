@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 Widget text_field(
         {required TextEditingController controller,
-        required String hint,
+        String? hint,
         String? Function(String?)? validator,
         int? maxLines}) =>
     TextFormField(

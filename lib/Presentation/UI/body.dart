@@ -45,9 +45,9 @@ class Body extends StatelessWidget {
             customerNo: userCubit.customerNo.text.isEmpty
                 ? userCubit.users[userCubit.first - 1].customerNo
                 : userCubit.customerNo.text,
-            arbicName: userCubit.arabicDes.text.isEmpty
+            arbicName: userCubit.arabicName.text.isEmpty
                 ? userCubit.users[userCubit.first - 1].arbicName
-                : userCubit.arabicDes.text,
+                : userCubit.arabicName.text,
             arabicDescription: userCubit.arabicDes.text.isEmpty
                 ? userCubit.users[userCubit.first - 1].arabicDescription
                 : userCubit.arabicDes.text,
@@ -55,7 +55,7 @@ class Body extends StatelessWidget {
                 ? userCubit.users[userCubit.first - 1].englishName
                 : userCubit.englishName.text,
             englishDescripton: userCubit.englishDes.text.isEmpty
-                ? userCubit.users[userCubit.first - 1].arbicName
+                ? userCubit.users[userCubit.first - 1].englishDescripton
                 : userCubit.englishDes.text,
             note: userCubit.note.text.isEmpty
                 ? userCubit.users[userCubit.first - 1].note
@@ -101,15 +101,19 @@ class Body extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Customer No'),
+                        Text(userCubit.state is PrepareToAdd ||
+                                userCubit.users.isEmpty
+                            ? 'Customer No'
+                            : userCubit.users[userCubit.first - 1].customerNo
+                                .toString()),
                         text_field(
                           controller: userCubit.customerNo,
                           validator: userCubit.validator(hint: 'Customer No'),
-                          hint: userCubit.state is PrepareToAdd ||
-                                  userCubit.users.isEmpty
-                              ? userCubit.customerNo.toString()
-                              : userCubit.users[userCubit.first - 1].customerNo
-                                  .toString(),
+                          // hint: userCubit.state is PrepareToAdd ||
+                          //         userCubit.users.isEmpty
+                          //     ? userCubit.customerNo.toString()
+                          //     : userCubit.users[userCubit.first - 1].customerNo
+                          //         .toString(),
                         )
                       ],
                     ),
@@ -119,89 +123,108 @@ class Body extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(MyStrings.arabicLabel),
+                  Text(
+                      userCubit.state is PrepareToAdd || userCubit.users.isEmpty
+                          ? MyStrings.arabicLabel
+                          : userCubit.users[userCubit.first - 1].arbicName
+                              .toString()),
                   text_field(
-                      controller: userCubit.arabicName,
-                      validator:
-                          userCubit.validator(hint: MyStrings.arabicLabel),
-                      hint: userCubit.state is PrepareToAdd ||
-                              userCubit.users.isEmpty
-                          ? MyStrings.arabicName
-                          : userCubit.users[userCubit.first - 1].arbicName)
+                    controller: userCubit.arabicName,
+                    validator: userCubit.validator(hint: MyStrings.arabicLabel),
+                    // hint: userCubit.state is PrepareToAdd ||
+                    //         userCubit.users.isEmpty
+                    //     ? MyStrings.arabicName
+                    //     : userCubit.users[userCubit.first - 1].arbicName
+                  )
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(MyStrings.arabicDesLabel),
+                  Text(userCubit.state is PrepareToAdd ||
+                          userCubit.users.isEmpty
+                      ? MyStrings.arabicDesLabel
+                      : userCubit.users[userCubit.first - 1].arabicDescription),
                   text_field(
-                      controller: userCubit.arabicDes,
-                      validator:
-                          userCubit.validator(hint: MyStrings.englishName),
-                      hint: userCubit.state is PrepareToAdd ||
-                              userCubit.users.isEmpty
-                          ? MyStrings.arabicDes
-                          : userCubit
-                              .users[userCubit.first - 1].arabicDescription)
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(MyStrings.englishNameLabel),
-                  text_field(
-                      controller: userCubit.englishName,
-                      validator:
-                          userCubit.validator(hint: MyStrings.englishName),
-                      hint: userCubit.state is PrepareToAdd ||
-                              userCubit.users.isEmpty
-                          ? MyStrings.englishName
-                          : userCubit.users[userCubit.first - 1].englishName)
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(MyStrings.englishDesLabel),
-                  text_field(
-                      controller: userCubit.englishDes,
-                      validator:
-                          userCubit.validator(hint: MyStrings.englishDes),
-                      hint: userCubit.state is PrepareToAdd ||
-                              userCubit.users.isEmpty
-                          ? MyStrings.englishDes
-                          : userCubit
-                              .users[userCubit.first - 1].englishDescripton)
+                    controller: userCubit.arabicDes,
+                    validator: userCubit.validator(hint: MyStrings.englishName),
+                    // hint: userCubit.state is PrepareToAdd ||
+                    //         userCubit.users.isEmpty
+                    //     ? MyStrings.arabicDes
+                    //     : userCubit
+                    //         .users[userCubit.first - 1].arabicDescription
+                  )
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    MyStrings.noteLabel,
+                      userCubit.state is PrepareToAdd || userCubit.users.isEmpty
+                          ? MyStrings.englishNameLabel
+                          : userCubit.users[userCubit.first - 1].englishName),
+                  text_field(
+                    controller: userCubit.englishName,
+                    validator: userCubit.validator(hint: MyStrings.englishName),
+                    // hint: userCubit.state is PrepareToAdd ||
+                    //         userCubit.users.isEmpty
+                    //     ? MyStrings.englishName
+                    //     : userCubit.users[userCubit.first - 1].englishName
+                  )
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(userCubit.state is PrepareToAdd ||
+                          userCubit.users.isEmpty
+                      ? MyStrings.englishDesLabel
+                      : userCubit.users[userCubit.first - 1].englishDescripton),
+                  text_field(
+                    controller: userCubit.englishDes,
+                    validator: userCubit.validator(hint: MyStrings.englishDes),
+                    // hint: userCubit.state is PrepareToAdd ||
+                    //         userCubit.users.isEmpty
+                    //     ? MyStrings.englishDes
+                    //     : userCubit
+                    //         .users[userCubit.first - 1].englishDescripton
+                  )
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userCubit.state is PrepareToAdd || userCubit.users.isEmpty
+                        ? MyStrings.noteLabel
+                        : userCubit.users[userCubit.first - 1].note,
                   ),
                   text_field(
                       controller: userCubit.note,
                       validator: userCubit.validator(hint: MyStrings.noteLabel),
-                      hint: userCubit.state is PrepareToAdd ||
-                              userCubit.users.isEmpty
-                          ? MyStrings.noteLabel
-                          : userCubit.users[userCubit.first - 1].note,
+                      // hint: userCubit.state is PrepareToAdd ||
+                      //         userCubit.users.isEmpty
+                      //     ? MyStrings.noteLabel
+                      //     : userCubit.users[userCubit.first - 1].note,
                       maxLines: 3)
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(MyStrings.address),
-                  text_field(
-                      controller: userCubit.address,
-                      validator: userCubit.validator(hint: MyStrings.address),
-                      hint: userCubit.state is PrepareToAdd ||
-                              userCubit.users.isEmpty
+                  Text(
+                      userCubit.state is PrepareToAdd || userCubit.users.isEmpty
                           ? MyStrings.address
-                          : userCubit
-                              .users[userCubit.first - 1].arabicDescription)
+                          : userCubit.users[userCubit.first - 1].address),
+                  text_field(
+                    controller: userCubit.address,
+                    validator: userCubit.validator(hint: MyStrings.address),
+                    // hint: userCubit.state is PrepareToAdd ||
+                    //         userCubit.users.isEmpty
+                    //     ? MyStrings.address
+                    //     : userCubit
+                    //         .users[userCubit.first - 1].arabicDescription
+                  )
                 ],
               ),
             ],
@@ -221,13 +244,13 @@ class Body extends StatelessWidget {
                   Flexible(
                     child: Row(
                       children: [
-                        Flexible(
+                        const Flexible(
                             child: SizedBox(
+                          width: 100,
                           child: Text(
                             'Branch No',
                             style: TextStyle(fontSize: 11),
                           ),
-                          width: 100,
                         )),
                         Spacer(),
                         Flexible(
@@ -257,9 +280,17 @@ class Body extends StatelessWidget {
                     child: Row(
                       children: [
                         Flexible(
-                            child: Text(
-                          'Customer No',
-                          style: TextStyle(fontSize: 11),
+                            child: SizedBox(
+                          width: 50,
+                          child: Text(
+                            userCubit.state is PrepareToAdd ||
+                                    userCubit.users.isEmpty
+                                ? 'Customer No'
+                                : userCubit
+                                    .users[userCubit.first - 1].customerNo
+                                    .toString(),
+                            style: TextStyle(fontSize: 11),
+                          ),
                         )),
                         Spacer(),
                         Flexible(
@@ -267,9 +298,11 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
-                                controller: userCubit.customerNo,
-                                hint: userCubit
-                                    .users[userCubit.first - 1].customerNo),
+                              controller: userCubit.customerNo,
+                              // hint: userCubit
+
+                              //     .users[userCubit.first - 1].customerNo
+                            ),
                           ),
                         )
                       ],
@@ -290,7 +323,11 @@ class Body extends StatelessWidget {
                             child: SizedBox(
                           width: 100,
                           child: Text(
-                            MyStrings.arabicLabel,
+                            userCubit.state is PrepareToAdd ||
+                                    userCubit.users.isEmpty
+                                ? MyStrings.arabicLabel
+                                : userCubit
+                                    .users[userCubit.first - 1].arbicName,
                             style: TextStyle(fontSize: 11),
                           ),
                         )),
@@ -300,9 +337,10 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
-                                controller: userCubit.arabicName,
-                                hint: userCubit
-                                    .users[userCubit.first - 1].arbicName),
+                              controller: userCubit.arabicName,
+                              // hint: userCubit
+                              //     .users[userCubit.first - 1].arbicName
+                            ),
                           ),
                         )
                       ],
@@ -313,9 +351,16 @@ class Body extends StatelessWidget {
                     child: Row(
                       children: [
                         Flexible(
-                            child: Text(
-                          MyStrings.arabicDesLabel,
-                          style: TextStyle(fontSize: 11),
+                            child: SizedBox(
+                          width: 50,
+                          child: Text(
+                            userCubit.state is PrepareToAdd ||
+                                    userCubit.users.isEmpty
+                                ? MyStrings.arabicDesLabel
+                                : userCubit.users[userCubit.first - 1]
+                                    .arabicDescription,
+                            style: TextStyle(fontSize: 11),
+                          ),
                         )),
                         Spacer(),
                         Flexible(
@@ -323,13 +368,14 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
-                                controller: userCubit.arabicDes,
-                                validator: userCubit.validator(
-                                    hint: MyStrings.englishName),
-                                hint: userCubit.state is PrepareToAdd
-                                    ? MyStrings.arabicDes
-                                    : userCubit.users[userCubit.first - 1]
-                                        .arabicDescription),
+                              controller: userCubit.arabicDes,
+                              validator: userCubit.validator(
+                                  hint: MyStrings.englishName),
+                              // hint: userCubit.state is PrepareToAdd
+                              //     ? MyStrings.arabicDes
+                              //     : userCubit.users[userCubit.first - 1]
+                              //         .arabicDescription
+                            ),
                           ),
                         )
                       ],
@@ -346,9 +392,16 @@ class Body extends StatelessWidget {
                     child: Row(
                       children: [
                         Flexible(
-                            child: Text(
-                          MyStrings.englishNameLabel,
-                          style: TextStyle(fontSize: 11),
+                            child: SizedBox(
+                          width: 100,
+                          child: Text(
+                            userCubit.state is PrepareToAdd ||
+                                    userCubit.users.isEmpty
+                                ? MyStrings.englishNameLabel
+                                : userCubit
+                                    .users[userCubit.first - 1].englishName,
+                            style: TextStyle(fontSize: 11),
+                          ),
                         )),
                         Spacer(),
                         Flexible(
@@ -356,13 +409,14 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
-                                controller: userCubit.englishName,
-                                validator: userCubit.validator(
-                                    hint: MyStrings.englishName),
-                                hint: userCubit.state is PrepareToAdd
-                                    ? MyStrings.englishName
-                                    : userCubit.users[userCubit.first - 1]
-                                        .englishName),
+                              controller: userCubit.englishName,
+                              validator: userCubit.validator(
+                                  hint: MyStrings.englishName),
+                              // hint: userCubit.state is PrepareToAdd
+                              //     ? MyStrings.englishName
+                              //     : userCubit.users[userCubit.first - 1]
+                              //         .englishName
+                            ),
                           ),
                         )
                       ],
@@ -376,9 +430,16 @@ class Body extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Flexible(
-                            child: Text(
-                          MyStrings.englishDesLabel,
-                          style: TextStyle(fontSize: 11),
+                            child: SizedBox(
+                          width: 50,
+                          child: Text(
+                            userCubit.state is PrepareToAdd ||
+                                    userCubit.users.isEmpty
+                                ? MyStrings.englishDesLabel
+                                : userCubit.users[userCubit.first - 1]
+                                    .englishDescripton,
+                            style: TextStyle(fontSize: 11),
+                          ),
                         )),
                         Spacer(),
                         Flexible(
@@ -386,11 +447,12 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
-                                controller: userCubit.englishDes,
-                                hint: userCubit.state is PrepareToAdd
-                                    ? MyStrings.englishDes
-                                    : userCubit.users[userCubit.first - 1]
-                                        .englishDescripton),
+                              controller: userCubit.englishDes,
+                              // hint: userCubit.state is PrepareToAdd
+                              //     ? MyStrings.englishDes
+                              //     : userCubit.users[userCubit.first - 1]
+                              //         .englishDescripton
+                            ),
                           ),
                         )
                       ],
@@ -411,7 +473,10 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             width: 100,
                             child: Text(
-                              MyStrings.noteLabel,
+                              userCubit.state is PrepareToAdd ||
+                                      userCubit.users.isEmpty
+                                  ? MyStrings.noteLabel
+                                  : userCubit.users[userCubit.first - 1].note,
                               style: TextStyle(fontSize: 11),
                             ),
                           ),
@@ -425,9 +490,9 @@ class Body extends StatelessWidget {
                               controller: userCubit.note,
                               validator: userCubit.validator(
                                   hint: MyStrings.noteLabel),
-                              hint: userCubit.state is PrepareToAdd
-                                  ? MyStrings.noteLabel
-                                  : userCubit.users[userCubit.first - 1].note,
+                              // hint: userCubit.state is PrepareToAdd
+                              //     ? MyStrings.noteLabel
+                              //     : userCubit.users[userCubit.first - 1].note,
                             ),
                           ),
                         )
@@ -441,9 +506,15 @@ class Body extends StatelessWidget {
                     child: Row(
                       children: [
                         Flexible(
-                            child: Text(
-                          MyStrings.address,
-                          style: TextStyle(fontSize: 11),
+                            child: SizedBox(
+                          width: 50,
+                          child: Text(
+                            userCubit.state is PrepareToAdd ||
+                                    userCubit.users.isEmpty
+                                ? MyStrings.address
+                                : userCubit.users[userCubit.first - 1].address,
+                            style: TextStyle(fontSize: 11),
+                          ),
                         )),
                         Spacer(),
                         Flexible(
