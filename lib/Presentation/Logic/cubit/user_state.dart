@@ -11,6 +11,8 @@ final class UserInitial extends UserState {}
 
 final class AddUser extends UserState {}
 
+final class UpdateUser extends UserState {}
+
 final class PrepareToAdd extends UserState {}
 
 final class GetUser extends UserState {

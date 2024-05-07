@@ -1,10 +1,6 @@
-import 'package:crud_operation/Core/strings.dart';
-import 'package:crud_operation/Data/Model/userModel.dart';
-import 'package:crud_operation/Domain/Entity/userEntity.dart';
+import 'package:crud_operation/Core/message.dart';
 import 'package:crud_operation/Presentation/Logic/cubit/user_cubit.dart';
 import 'package:crud_operation/Presentation/UI/body.dart';
-import 'package:crud_operation/Presentation/UI/body_portrat.dart';
-import 'package:crud_operation/Presentation/UI/field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -25,10 +21,15 @@ class Home extends StatelessWidget {
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
           if (state is AddUser) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('User Added Successfully'),
-              backgroundColor: Colors.green,
-            ));
+            message(
+                context: context,
+                message: 'User Added Successfully',
+                mcolor: Colors.green);
+          } else if (state is UpdateUser) {
+            message(
+                context: context,
+                message: 'User Updated Successfully',
+                mcolor: Colors.yellow);
           }
         },
         builder: (context, state) {
@@ -42,7 +43,8 @@ class Home extends StatelessWidget {
                         onPressed: userCubit.first <= 1
                             ? null
                             : () {
-                                userCubit.move_prevoius(pre: 2);
+                                userCubit.move_prevoius(
+                                    pre: userCubit.users.length);
                               },
                         icon: const Icon(TablerIcons.player_track_prev_filled));
                   },
@@ -59,7 +61,7 @@ class Home extends StatelessWidget {
                     ) //TablerIcons.arrow_left_square)
                     ),
                 Text(
-                    '${userCubit.first} / ${userCubit.users.length.toString()}'),
+                    '${userCubit.first} / ${userCubit.users.isEmpty ? 1 : userCubit.users.length.toString()}'),
                 IconButton(
                     onPressed: userCubit.first == userCubit.users.length
                         ? null
@@ -71,28 +73,16 @@ class Home extends StatelessWidget {
                     onPressed: userCubit.first == userCubit.users.length
                         ? null
                         : () {
-                            userCubit.move_next(next: 2);
+                            userCubit.move_next(next: userCubit.users.length);
                           },
                     icon: const Icon(TablerIcons.player_track_next_filled)),
               ],
             ),
-            body: userCubit.users.isEmpty
+            body: userCubit.state is LoadingData
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : OrientationBuilder(builder: (_, orientation) {
-                    if (orientation == Orientation.portrait) {
-                      return Body(
-                        userCubit: userCubit,
-                        check_landscape: false,
-                      ); // if orientation is portrait, show your portrait layout
-                    } else {
-                      return Body(
-                        userCubit: userCubit,
-                        check_landscape: true,
-                      ); // else show the landscape one
-                    }
-                  }),
+                : Body(userCubit: userCubit),
           );
         },
       ),

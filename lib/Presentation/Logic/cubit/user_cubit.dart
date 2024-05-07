@@ -31,26 +31,33 @@ class UserCubit extends Cubit<UserState> {
       };
   UserCubit() : super(UserInitial());
 
-  void add_user({required UserModel user}) async {
+  void add_user({required UserModel user, required bool update}) async {
     await remoteImp.post_user(user: user);
-    emit(AddUser());
+    emit(update ? AddUser() : UpdateUser());
     clear_text();
     get_users();
   }
 
   void move_next({required int next}) {
     emit(UserInitial());
-    first += next;
+    if (first + next > users.length) {
+      first = users.length;
+    } else {
+      first += next;
+    }
     emit(MoveNext());
   }
 
   void move_prevoius({required int pre}) {
     emit(UserInitial());
 
-    if (first > 0) {
+    if (first - pre <= 0) {
+      first = 1;
+    } else {
       first -= pre;
-      emit(MoveNext());
     }
+    print(first);
+    emit(MovePrevoius());
   }
 
   void get_users() async {
@@ -58,8 +65,8 @@ class UserCubit extends Cubit<UserState> {
     final getusrs = await remoteImp.get_users();
     if (getusrs != null) {
       users = getusrs;
-      print(users);
       branch = users.length + 1;
+
       emit(GetUser(x: users));
     }
   }

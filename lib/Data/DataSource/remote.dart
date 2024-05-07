@@ -26,11 +26,23 @@ class UserRemoteImp extends UserRemote {
 
   @override
   Future<void> post_user({required UserModel user}) async {
+    // await firestore
+    //     .collection(userpath)
+    //     .add(user.toMap())
+    //     .then((value) => print("User Added"))
+    //     .catchError((error) => print("Failed to add user: $error"));
+    // await firestore
+    //     .collection(userpath)
+    //     .doc(user.branchNo.toString())
+    //     .update(user.toMap())
+    //     .then((value) => print("User updated"))
+    //     .catchError((error) => print("Failed to add user: $error"));
+
     await firestore
         .collection(userpath)
         .doc(user.branchNo.toString())
         .set(user.toMap())
-        .then((value) => print("User Added"))
+        .then((value) => print("User Added or Edited"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 }
