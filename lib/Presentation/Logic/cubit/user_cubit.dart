@@ -23,8 +23,10 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController note = TextEditingController();
   TextEditingController address = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String? Function(String?)? validator({required String hint}) => (value) {
-        if (value == null || value.isEmpty) {
+        // if (state is UserInitial) return null;
+        if (value!.isEmpty && state is PrepareToAdd) {
           return 'Please enter your $hint';
         }
         return null;
@@ -45,7 +47,9 @@ class UserCubit extends Cubit<UserState> {
     } else {
       first += next;
     }
+
     emit(MoveNext());
+    if (formKey.currentState!.validate()) {}
   }
 
   void move_prevoius({required int pre}) {
@@ -58,10 +62,11 @@ class UserCubit extends Cubit<UserState> {
     }
     print(first);
     emit(MovePrevoius());
+    if (formKey.currentState!.validate()) {}
   }
 
   void get_users() async {
-    emit(LoadingData(x: users));
+    emit(LoadingData());
     final getusrs = await remoteImp.get_users();
     if (getusrs != null) {
       users = getusrs;

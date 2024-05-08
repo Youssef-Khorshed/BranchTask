@@ -147,7 +147,8 @@ class Body extends StatelessWidget {
                       : userCubit.users[userCubit.first - 1].arabicDescription),
                   text_field(
                     controller: userCubit.arabicDes,
-                    validator: userCubit.validator(hint: MyStrings.englishName),
+                    validator:
+                        userCubit.validator(hint: MyStrings.arabicDesLabel),
                     // hint: userCubit.state is PrepareToAdd ||
                     //         userCubit.users.isEmpty
                     //     ? MyStrings.arabicDes
@@ -165,7 +166,8 @@ class Body extends StatelessWidget {
                           : userCubit.users[userCubit.first - 1].englishName),
                   text_field(
                     controller: userCubit.englishName,
-                    validator: userCubit.validator(hint: MyStrings.englishName),
+                    validator:
+                        userCubit.validator(hint: MyStrings.englishNameLabel),
                     // hint: userCubit.state is PrepareToAdd ||
                     //         userCubit.users.isEmpty
                     //     ? MyStrings.englishName
@@ -182,7 +184,8 @@ class Body extends StatelessWidget {
                       : userCubit.users[userCubit.first - 1].englishDescripton),
                   text_field(
                     controller: userCubit.englishDes,
-                    validator: userCubit.validator(hint: MyStrings.englishDes),
+                    validator:
+                        userCubit.validator(hint: MyStrings.englishDesLabel),
                     // hint: userCubit.state is PrepareToAdd ||
                     //         userCubit.users.isEmpty
                     //     ? MyStrings.englishDes
@@ -214,11 +217,12 @@ class Body extends StatelessWidget {
                 children: [
                   Text(
                       userCubit.state is PrepareToAdd || userCubit.users.isEmpty
-                          ? MyStrings.address
+                          ? MyStrings.addresslabel
                           : userCubit.users[userCubit.first - 1].address),
                   text_field(
                     controller: userCubit.address,
-                    validator: userCubit.validator(hint: MyStrings.address),
+                    validator:
+                        userCubit.validator(hint: MyStrings.addresslabel),
                     // hint: userCubit.state is PrepareToAdd ||
                     //         userCubit.users.isEmpty
                     //     ? MyStrings.address
@@ -298,6 +302,9 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
+                              validator: userCubit.validator(
+                                  hint: MyStrings.customerNolabel),
+
                               controller: userCubit.customerNo,
                               // hint: userCubit
 
@@ -337,6 +344,8 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
+                              validator: userCubit.validator(
+                                  hint: MyStrings.arabicLabel),
                               controller: userCubit.arabicName,
                               // hint: userCubit
                               //     .users[userCubit.first - 1].arbicName
@@ -370,7 +379,7 @@ class Body extends StatelessWidget {
                             child: text_field(
                               controller: userCubit.arabicDes,
                               validator: userCubit.validator(
-                                  hint: MyStrings.englishName),
+                                  hint: MyStrings.arabicDesLabel),
                               // hint: userCubit.state is PrepareToAdd
                               //     ? MyStrings.arabicDes
                               //     : userCubit.users[userCubit.first - 1]
@@ -411,7 +420,7 @@ class Body extends StatelessWidget {
                             child: text_field(
                               controller: userCubit.englishName,
                               validator: userCubit.validator(
-                                  hint: MyStrings.englishName),
+                                  hint: MyStrings.englishNameLabel),
                               // hint: userCubit.state is PrepareToAdd
                               //     ? MyStrings.englishName
                               //     : userCubit.users[userCubit.first - 1]
@@ -448,6 +457,8 @@ class Body extends StatelessWidget {
                             height: 50,
                             child: text_field(
                               controller: userCubit.englishDes,
+                              validator: userCubit.validator(
+                                  hint: MyStrings.englishDesLabel),
                               // hint: userCubit.state is PrepareToAdd
                               //     ? MyStrings.englishDes
                               //     : userCubit.users[userCubit.first - 1]
@@ -511,7 +522,7 @@ class Body extends StatelessWidget {
                           child: Text(
                             userCubit.state is PrepareToAdd ||
                                     userCubit.users.isEmpty
-                                ? MyStrings.address
+                                ? MyStrings.addresslabel
                                 : userCubit.users[userCubit.first - 1].address,
                             style: TextStyle(fontSize: 11),
                           ),
@@ -522,13 +533,14 @@ class Body extends StatelessWidget {
                           child: SizedBox(
                             height: 50,
                             child: text_field(
-                                controller: userCubit.address,
-                                validator: userCubit.validator(
-                                    hint: MyStrings.address),
-                                hint: userCubit.state is PrepareToAdd
-                                    ? MyStrings.address
-                                    : userCubit
-                                        .users[userCubit.first - 1].address),
+                              controller: userCubit.address,
+                              validator: userCubit.validator(
+                                  hint: MyStrings.addresslabel),
+                              // hint: userCubit.state is PrepareToAdd
+                              //     ? MyStrings.address
+                              //     : userCubit
+                              //         .users[userCubit.first - 1].address
+                            ),
                           ),
                         )
                       ],

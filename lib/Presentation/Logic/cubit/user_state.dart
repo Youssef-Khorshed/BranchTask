@@ -20,10 +20,7 @@ final class GetUser extends UserState {
   GetUser({required this.x});
 }
 
-final class LoadingData extends UserState {
-  List<User> x;
-  LoadingData({required this.x});
-}
+final class LoadingData extends UserState {}
 
 final class MoveNext extends UserState {}
 
